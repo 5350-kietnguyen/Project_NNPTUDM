@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="./css/register.css">
+</head>
+<body>
+    <header>
+        <h1>Đăng ký tài khoản mới</h1>
+    </header>
+
+    <main>
+        <form id="registerForm">
+            <label for="username">Tên người dùng:</label>
+            <input type="text" id="username" name="username" required>
+
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="password">Mật khẩu:</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Đăng ký</button>
+        </form>
+
+        <p>Đã có tài khoản? <a href="login.html">Đăng nhập</a></p>
+    </main>
+
+    <footer>
+        <p>© 2025 Task Manager</p>
+    </footer>
+
+    <script>
+        // Hàm xử lý đăng ký
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();  // Ngừng hành động mặc định của form
+
+            const username = document.getElementById('username').value;
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('/api/users/register', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Nếu đăng ký thành công, thông báo và chuyển hướng đến trang login
+                    alert('Đăng ký thành công! Bạn có thể đăng nhập ngay.');
+                    window.location.href = 'login.html';  // Chuyển hướng đến trang login
+                } else {
+                    alert(data.error || 'Đã có lỗi xảy ra khi đăng ký');
+                }
+            } catch (err) {
+                console.error('Lỗi đăng ký:', err);
+                alert('Đã có lỗi xảy ra. Vui lòng thử lại!');
+            }
+        });
+    </script>
+</body>
+</html>

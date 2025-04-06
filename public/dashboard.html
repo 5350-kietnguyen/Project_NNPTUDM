@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Task Manager</title>
+    <link rel="stylesheet" href="./css/dashboard.css"> <!-- Liên kết với file CSS của bạn -->
+</head>
+<body>
+    <div class="container">
+        <h1>Danh sách công việc</h1>
+
+        <div id="admin-actions" style="display:none;">
+            <button id="create-task-btn">Tạo công việc mới</button>
+            <button id="edit-task-btn" style="display:none;">Chỉnh sửa công việc</button>
+            <button id="delete-task-btn" style="display:none;">Xóa công việc</button>
+        </div>
+
+        <div class="task-list" id="task-list">
+            <!-- Các công việc sẽ được hiển thị ở đây -->
+        </div>
+    </div>
+
+    <!-- Modal cho Tạo công việc -->
+    <div id="create-task-modal" style="display:none;">
+        <h2>Tạo công việc mới</h2>
+        <form id="create-task-form">
+            <label for="title">Tiêu đề:</label>
+            <input type="text" id="title" name="title" required>
+
+            <label for="description">Mô tả:</label>
+            <input type="text" id="description" name="description" required>
+
+            <label for="status">Trạng thái:</label>
+            <select id="status" name="status">
+                <option value="Chưa hoàn thành">Chưa hoàn thành</option>
+                <option value="Đang tiến hành">Đang tiến hành</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+
+            <label for="category">Loại công việc:</label>
+            <select id="category" name="category">
+                <option value="Công việc cá nhân">Công việc cá nhân</option>
+                <option value="Công việc học tập">Công việc học tập</option>
+                <option value="Công việc công ty">Công việc công ty</option>
+            </select>
+
+            <button type="submit">Lưu công việc</button>
+            <button type="button" id="close-create-modal-btn">Hủy</button>
+        </form>
+    </div>
+
+    <!-- Modal cho Chỉnh sửa công việc -->
+    <div id="edit-task-modal" style="display:none;">
+        <h2>Chỉnh sửa công việc</h2>
+        <form id="edit-task-form">
+            <label for="edit-title">Tiêu đề:</label>
+            <input type="text" id="edit-title" name="title" required>
+
+            <label for="edit-description">Mô tả:</label>
+            <input type="text" id="edit-description" name="description" required>
+
+            <label for="edit-status">Trạng thái:</label>
+            <select id="edit-status" name="status">
+                <option value="Chưa hoàn thành">Chưa hoàn thành</option>
+                <option value="Đang tiến hành">Đang tiến hành</option>
+                <option value="Hoàn thành">Hoàn thành</option>
+            </select>
+
+            <label for="edit-category">Loại công việc:</label>
+            <select id="edit-category" name="category">
+                <option value="Công việc cá nhân">Công việc cá nhân</option>
+                <option value="Công việc học tập">Công việc học tập</option>
+                <option value="Công việc công ty">Công việc công ty</option>
+            </select>
+
+            <button type="submit">Lưu thay đổi</button>
+            <button type="button" id="close-edit-modal-btn">Hủy</button>
+        </form>
+    </div>
+
+    <!-- Modal cho Xóa công việc -->
+    <div id="delete-task-modal" style="display:none;">
+        <h2>Xóa công việc</h2>
+        <p>Bạn có chắc chắn muốn xóa công việc này?</p>
+        <button id="confirm-delete-btn">Xóa</button>
+        <button type="button" id="close-delete-modal-btn">Hủy</button>
+    </div>
+
+
+
+    <script src="./js/dashboard.js"></script>
+</body>
+</html>
