@@ -1,92 +1,125 @@
-/* index.css */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
+
+:root {
+    --rainbow-1: #ff4b5c;
+    --rainbow-2: #ffb400;
+    --rainbow-3: #00c9a7;
+    --rainbow-4: #4b7bec;
+    --rainbow-5: #9d4edd;
+    --text-dark: #2d2d2d;
+    --bg-light: #f9f9f9;
+}
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f6f8;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-light);
     margin: 0;
     padding: 0;
+    color: var(--text-dark);
 }
 
 .container {
     max-width: 960px;
     margin: 40px auto;
     background: white;
-    padding: 30px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    border: 3px solid var(--rainbow-5);
+    transition: all 0.3s ease;
 }
 
 h1, h2 {
     text-align: center;
-    color: #333;
+    background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-2), var(--rainbow-3), var(--rainbow-4), var(--rainbow-5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 700;
 }
 
 button {
-    background-color: #007BFF;
+    background: linear-gradient(135deg, var(--rainbow-1), var(--rainbow-2), var(--rainbow-3));
     color: white;
     border: none;
-    padding: 10px 18px;
-    border-radius: 4px;
+    padding: 10px 20px;
+    border-radius: 6px;
     cursor: pointer;
     margin: 5px;
-    transition: background-color 0.3s ease;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #0056b3;
-}
-
-.task-list {
-    margin-top: 20px;
-}
-
-.task {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 15px;
-    margin-bottom: 15px;
-    background-color: #fafafa;
-    position: relative;
-}
-
-.task h3 {
-    margin: 0;
-    color: #007BFF;
-}
-
-.task p {
-    margin: 8px 0;
-    font-size: 14px;
-    color: #555;
-}
-
-.task button {
-    margin-right: 10px;
-    margin-top: 10px;
+    background: linear-gradient(135deg, var(--rainbow-4), var(--rainbow-5));
+    transform: scale(1.05);
 }
 
 #admin-actions {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 25px;
+}
+
+.task-list {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task {
+    border-left: 8px solid var(--rainbow-3);
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+}
+
+.task:hover {
+    border-left-color: var(--rainbow-4);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.task h3 {
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-2), var(--rainbow-4));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: 600;
+}
+
+.task p {
+    margin: 6px 0;
+    font-size: 15px;
+    color: #555;
 }
 
 form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 12px;
 }
 
 form input[type="text"],
 form select {
-    padding: 8px 10px;
-    font-size: 14px;
-    border-radius: 4px;
+    padding: 10px 12px;
+    font-size: 15px;
+    border-radius: 8px;
     border: 1px solid #ccc;
+    transition: border 0.2s ease;
+}
+
+form input:focus,
+form select:focus {
+    border-color: var(--rainbow-2);
+    outline: none;
 }
 
 form button {
-    width: fit-content;
     align-self: flex-start;
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--rainbow-1), var(--rainbow-5));
 }
 
 #edit-task-modal,
@@ -95,32 +128,36 @@ form button {
     position: fixed;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%) scale(1);
     background: white;
-    padding: 25px 30px;
-    border-radius: 8px;
-    box-shadow: 0 0 20px rgba(0,0,0,0.2);
-    z-index: 1000;
+    padding: 30px;
+    border-radius: 16px;
+    border: 3px solid var(--rainbow-2);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    z-index: 1001;
     width: 90%;
     max-width: 500px;
+    transition: transform 0.3s ease;
 }
 
 #edit-task-modal h2,
 #create-task-modal h2,
 #delete-task-modal h2 {
-    margin-top: 0;
+    text-align: center;
+    background: linear-gradient(90deg, var(--rainbow-1), var(--rainbow-3), var(--rainbow-5));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 #delete-task-modal p {
-    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
     font-weight: bold;
+    margin-bottom: 20px;
 }
 
-#delete-task-modal button {
-    margin-right: 10px;
-}
-
-/* Overlay effect for modals (optional) */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -128,6 +165,6 @@ form button {
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,0.3);
-    z-index: 999;
+    z-index: 1000;
     display: none;
 }
