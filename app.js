@@ -7,7 +7,7 @@ const categoryRoutes = require('./routes/categoryRoutes');  // Import categoryRo
 const dotenv = require('dotenv');  // Thêm dotenv để quản lý biến môi trường
 const auth = require('./middleware/auth'); // Middleware auth
 const isAdmin = require('./middleware/isAdmin'); // Middleware isAdmin
-
+const cors = require('cors');
 // Load các biến môi trường từ .env file
 dotenv.config();
 
@@ -26,6 +26,8 @@ connectDB()
 
 // Middleware để xử lý dữ liệu JSON
 app.use(express.json());
+
+app.use(cors());  // Cấu hình CORS cho tất cả các route
 
 // Để phục vụ các file tĩnh (HTML, CSS, JS) trong thư mục "public"
 app.use(express.static('./public')); // Thư mục public chứa các file của bạn

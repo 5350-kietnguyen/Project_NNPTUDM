@@ -146,26 +146,38 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
         const userId = document.getElementById('edit-user-id').value;
         const formData = new FormData(editUserForm);
+
         const updatedUser = {
             username: formData.get('username'),
             email: formData.get('email'),
-            password: formData.get('password'),
             role: formData.get('role')
         };
-        
-        const response = await fetch(`/api/users/${userId}`, {
-            method: 'PUT',
-            headers: {
-                'Authorization': `Bearer ${token}`,  // Gửi token trong header Authorization
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(updatedUser)
-        });
 
-        if (response.ok) {
-            alert('Thông tin người dùng đã được cập nhật');
-            location.reload();
-        } else {
+        const password = formData.get('password');
+        if (password) {
+            updatedUser.password = password;  // Mã hóa mật khẩu nếu có thay đổi
+        }
+
+        try {
+            const response = await fetch(`/api/users/${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(updatedUser)
+            });
+
+            if (response.ok) {
+                alert('Thông tin người dùng đã được cập nhật');
+                location.reload();
+            } else {
+                const error = await response.json();
+                console.error('Cập nhật thất bại:', error);
+                alert(`Có lỗi khi cập nhật người dùng: ${error.message}`);
+            }
+        } catch (err) {
+            console.error('Có lỗi khi gửi yêu cầu cập nhật:', err);
             alert('Có lỗi khi cập nhật người dùng');
         }
     });

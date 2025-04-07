@@ -24,7 +24,7 @@ router.get('/', auth, isAdmin, getAllUsers);
 router.get('/:id', auth, getUserById);
 
 // API cập nhật thông tin người dùng (Chỉ admin hoặc người dùng đó)
-router.put('/:id', auth, updateUser);
+router.put('/:id', auth, isAdmin, updateUser);  // Middleware auth và isAdmin
 
 // API xóa người dùng theo ID
 router.delete('/:id', auth, isAdmin, deleteUser)

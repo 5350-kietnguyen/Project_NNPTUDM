@@ -1,4 +1,5 @@
 const Task = require('../models/Task');
+const Category = require('../models/Category');  // Import Category model
 
 // Tạo công việc mới
 const createTask = async (req, res) => {
@@ -6,11 +7,19 @@ const createTask = async (req, res) => {
         const { title, description, status, category } = req.body;
         const userId = req.userId;  // ID người dùng từ JWT token
 
+        // Tìm kiếm _id của loại công việc dựa trên tên loại công việc
+        const categoryDoc = await Category.findOne({ name: category });
+        
+        if (!categoryDoc) {
+            return res.status(400).json({ error: 'Loại công việc không hợp lệ' });
+        }
+
+        // Tạo công việc mới với _id của category
         const newTask = new Task({
             title,
             description,
             status,
-            category,
+            category: categoryDoc._id,  // Lưu _id của category
             userId
         });
 

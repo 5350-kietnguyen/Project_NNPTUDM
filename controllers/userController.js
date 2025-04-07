@@ -71,10 +71,13 @@ const getUserById = async (req, res) => {
     }
 };
 
-// Cập nhật thông tin người dùng
+const bcrypt = require('bcryptjs');
+
 const updateUser = async (req, res) => {
     const { id } = req.params;
     const { username, email, password, role } = req.body;
+
+    console.log('Request body:', req.body);  // Thêm log để kiểm tra dữ liệu
 
     try {
         const user = await User.findById(id);
@@ -84,19 +87,26 @@ const updateUser = async (req, res) => {
 
         user.username = username || user.username;
         user.email = email || user.email;
+
+        // Mã hóa mật khẩu nếu có thay đổi
         if (password) {
-            user.password = password; // Mã hóa mật khẩu trong User model
+            user.password = await bcrypt.hash(password, 10);  // Mã hóa mật khẩu
         }
-        if (role && req.user.role === 'admin') {
-            user.role = role; // Chỉ admin mới có thể thay đổi vai trò của người dùng
+
+        // Kiểm tra quyền admin để có thể thay đổi vai trò
+        if (role && req.role === 'admin') {
+            user.role = role;
         }
 
         await user.save();
         res.status(200).json({ message: 'Cập nhật người dùng thành công', user });
     } catch (err) {
+        console.error('Lỗi khi cập nhật người dùng:', err);  // Hiển thị lỗi chi tiết
         res.status(500).json({ error: 'Lỗi khi cập nhật người dùng', message: err.message });
     }
 };
+
+
 
 // Xóa người dùng
 const deleteUser = async (req, res) => {

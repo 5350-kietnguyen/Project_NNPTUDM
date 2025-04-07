@@ -40,15 +40,14 @@
 
             <label for="category">Loại công việc:</label>
             <select id="category" name="category">
-                <option value="Công việc cá nhân">Công việc cá nhân</option>
-                <option value="Công việc học tập">Công việc học tập</option>
-                <option value="Công việc công ty">Công việc công ty</option>
+                <!-- Các loại công việc sẽ được điền từ API -->
             </select>
 
             <button type="submit">Lưu công việc</button>
             <button type="button" id="close-create-modal-btn">Hủy</button>
         </form>
     </div>
+
 
     <!-- Modal cho Chỉnh sửa công việc -->
     <div id="edit-task-modal" style="display:none;">
@@ -69,9 +68,7 @@
 
             <label for="edit-category">Loại công việc:</label>
             <select id="edit-category" name="category">
-                <option value="Công việc cá nhân">Công việc cá nhân</option>
-                <option value="Công việc học tập">Công việc học tập</option>
-                <option value="Công việc công ty">Công việc công ty</option>
+                <!-- Các loại công việc sẽ được điền từ API -->
             </select>
 
             <button type="submit">Lưu thay đổi</button>
@@ -88,7 +85,7 @@
     </div>
 
 
-
-    <script src="./js/dashboard.js"></script>
+    <script src="./js/oc_task.js"></script>
+    <script src="./js/task.js"></script>
 </body>
 </html>
