@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
 :root {
-    --rainbow-1: #ff4b5c;
-    --rainbow-2: #ffb400;
-    --rainbow-3: #00c9a7;
-    --rainbow-4: #4b7bec;
-    --rainbow-5: #9d4edd;
+    --rainbow-1: #ff7f50;  /* Coral */
+    --rainbow-2: #ff6347;  /* Tomato */
+    --rainbow-3: #20b2aa;  /* LightSeaGreen */
+    --rainbow-4: #4169e1;  /* RoyalBlue */
+    --rainbow-5: #8a2be2;  /* BlueViolet */
     --text-dark: #2d2d2d;
     --bg-light: #f9f9f9;
 }

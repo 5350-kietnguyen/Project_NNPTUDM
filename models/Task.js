@@ -17,9 +17,14 @@ const taskSchema = new mongoose.Schema({
         enum: ['Chưa hoàn thành', 'Đang tiến hành', 'Hoàn thành'],
         default: 'Chưa hoàn thành'
     },
+    // category: {
+    //     type: String,
+    //     enum: ['Công việc cá nhân', 'Công việc học tập', 'Công việc công ty'],
+    //     required: true
+    // },
     category: {
-        type: String,
-        enum: ['Công việc cá nhân', 'Công việc học tập', 'Công việc công ty'],
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',  // Liên kết với Category
         required: true
     },
     userId: {

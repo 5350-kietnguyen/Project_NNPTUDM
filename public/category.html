@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý Loại Công Việc</title>
+    <link rel="stylesheet" href="./css/category.css">
+</head>
+<body>
+    <div class="container">
+        <h2>Quản lý Loại Công Việc</h2>
+        <button class="btn" onclick="openModal('addCategoryModal')">Thêm Loại Công Việc</button>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Tên Loại</th>
+                    <th>Mô Tả</th>
+                    <th>Hành Động</th>
+                </tr>
+            </thead>
+            <tbody id="categoryTableBody">
+                <!-- Các loại công việc sẽ được hiển thị tại đây -->
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Modal Thêm -->
+    <div class="modal" id="addCategoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Thêm Loại Công Việc</h5>
+                <button class="close" onclick="closeModal('addCategoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addCategoryForm">
+                    <div class="form-group">
+                        <label for="categoryName">Tên Loại Công Việc</label>
+                        <input type="text" id="categoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="categoryDescription">Mô Tả</label>
+                        <input type="text" id="categoryDescription">
+                    </div>
+                    <button type="submit" class="btn">Thêm</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Cập Nhật -->
+    <div class="modal" id="editCategoryModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5>Cập Nhật Loại Công Việc</h5>
+                <button class="close" onclick="closeModal('editCategoryModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="editCategoryForm">
+                    <input type="hidden" id="editCategoryId">
+                    <div class="form-group">
+                        <label for="editCategoryName">Tên Loại Công Việc</label>
+                        <input type="text" id="editCategoryName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="editCategoryDescription">Mô Tả</label>
+                        <input type="text" id="editCategoryDescription">
+                    </div>
+                    <button type="submit" class="btn">Cập Nhật</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(id) {
+            document.getElementById(id).classList.add("active");
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove("active");
+        }
+    </script>
+    <script src="./js/category.js"></script>
+</body>
+</html>

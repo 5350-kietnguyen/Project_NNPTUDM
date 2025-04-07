@@ -3,6 +3,7 @@ const app = express();
 const connectDB = require('./config/db');
 const taskRoutes = require('./routes/taskRoutes');
 const userRoutes = require('./routes/userRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');  // Import categoryRoutes
 const dotenv = require('dotenv');  // Thêm dotenv để quản lý biến môi trường
 const auth = require('./middleware/auth'); // Middleware auth
 const isAdmin = require('./middleware/isAdmin'); // Middleware isAdmin
@@ -34,6 +35,9 @@ app.use('/api/users', userRoutes);
 
 // Routes cho các công việc (API liên quan đến công việc)
 app.use('/api/tasks', taskRoutes);
+
+// Routes cho loại công việc (API liên quan đến category)
+app.use('/api/categories', categoryRoutes);  // Sử dụng categoryRoutes
 
 // Middleware xử lý lỗi 404 (Route không tìm thấy)
 app.use((req, res, next) => {
