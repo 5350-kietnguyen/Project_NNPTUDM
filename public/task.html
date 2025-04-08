@@ -4,23 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard - Task Manager</title>
-    <link rel="stylesheet" href="./css/dashboard.css"> <!-- Liên kết với file CSS của bạn -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="./css/task.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Danh sách công việc</h1>
+    <header>
+        <button class="back-button" onclick="window.history.back()">← Quay lại</button>
+        <h1>Hệ thống quản lý</h1>
+        <div></div> <!-- giữ chỗ để cân bằng flex -->
+        <button id="toggle-theme-btn" class="back-button">🌙</button>
+    </header>
 
-        <div id="admin-actions" style="display:none;">
-            <button id="create-task-btn">Tạo công việc mới</button>
-            <button id="edit-task-btn" style="display:none;">Chỉnh sửa công việc</button>
-            <button id="delete-task-btn" style="display:none;">Xóa công việc</button>
-        </div>
+    <div class="main-content-row">
+        <div class="container">
+            <h1>Danh sách công việc</h1>
+            
+            <div id="admin-actions" style="display:none;">
+                <button id="create-task-btn">Tạo công việc mới</button>
+                <button id="edit-task-btn" style="display:none;">Chỉnh sửa công việc</button>
+                <button id="delete-task-btn" style="display:none;">Xóa công việc</button>
+            </div>
 
-        <div class="task-list" id="task-list">
-            <!-- Các công việc sẽ được hiển thị ở đây -->
+            <div class="task-list" id="task-list">
+                <!-- Các công việc sẽ được hiển thị ở đây -->
+            </div>
         </div>
+        
+        <!-- Biểu đồ thống kê theo trạng thái -->
+        <section id="status-statistics">
+            <h2>Thống Kê Theo Trạng Thái</h2>
+            <canvas id="statusChart" width="400" height="200"></canvas>
+        </section>
     </div>
-
     <!-- Modal cho Tạo công việc -->
     <div id="create-task-modal" style="display:none;">
         <h2>Tạo công việc mới</h2>
@@ -47,7 +62,6 @@
             <button type="button" id="close-create-modal-btn">Hủy</button>
         </form>
     </div>
-
 
     <!-- Modal cho Chỉnh sửa công việc -->
     <div id="edit-task-modal" style="display:none;">
@@ -84,8 +98,8 @@
         <button type="button" id="close-delete-modal-btn">Hủy</button>
     </div>
 
-
     <script src="./js/oc_task.js"></script>
     <script src="./js/task.js"></script>
+    <script src="./js/light_dark.js"></script>
 </body>
 </html>

@@ -210,3 +210,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Tải danh sách người dùng khi trang được tải
     loadUserList();
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-theme-btn");
+    const body = document.body;
+
+    // Tải chế độ đã lưu (nếu có)
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+    }
+
+    toggleBtn.addEventListener("click", function () {
+        body.classList.toggle("dark-mode");
+
+        // Lưu chế độ vào localStorage
+        if (body.classList.contains("dark-mode")) {
+            localStorage.setItem("theme", "dark");
+        } else {
+            localStorage.setItem("theme", "light");
+        }
+    });
+});

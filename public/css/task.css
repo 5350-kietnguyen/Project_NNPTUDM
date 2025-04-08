@@ -18,6 +18,93 @@ body {
     color: var(--text-dark);
 }
 
+body.dark-mode {
+    --text-dark: #f3f4f6;
+    --bg-light: #1e293b;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+}
+
+body.dark-mode header {
+    background-color: #111827;
+}
+
+body.dark-mode .container,
+body.dark-mode .task,
+body.dark-mode #status-statistics,
+body.dark-mode #create-task-modal,
+body.dark-mode #edit-task-modal,
+body.dark-mode #delete-task-modal {
+    background-color: #1f2937;
+    color: #f3f4f6;
+    border-color: var(--rainbow-4);
+}
+
+body.dark-mode .task-list {
+    background-color: #1e293b;
+    border-color: #374151;
+}
+
+body.dark-mode .task p {
+    color: #cbd5e1;
+}
+
+body.dark-mode form input[type="text"],
+body.dark-mode form select {
+    background-color: #334155;
+    color: #f3f4f6;
+    border-color: #475569;
+}
+
+
+header {
+    background-color: var(--text-dark);
+    color: #fff;
+    padding: 16px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+header h1 {
+    font-size: 20px;
+    margin: 0;
+}
+
+.back-button {
+    background-color: var(--rainbow-4);
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.back-button:hover {
+    background-color: var(--rainbow-5);
+}
+
+.main-content-row {
+    display: flex;
+    gap: 32px;
+    padding: 40px;
+    max-width: 1400px;
+    margin: 0 auto;
+    align-items: flex-start;
+}
+
+.main-content-row .container {
+    flex: 7;
+    padding: 0;
+    box-shadow: none;
+    border: none;
+}
+
 .container {
     max-width: 960px;
     margin: 40px auto;
@@ -60,10 +147,54 @@ button:hover {
 }
 
 .task-list {
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+    max-height: 700px;
+    overflow-y: auto;
+    padding-right: 8px;
+    border: 1px solid var(--rainbow-1);
+    border-radius: 12px;
+    background-color: white;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    position: relative;
+}
+
+.task-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.task-list::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--rainbow-3), var(--rainbow-4));
+    border-radius: 4px;
+}
+
+.task-list::-webkit-scrollbar-track {
+    background: var(--bg-light);
+    border-radius: 4px;
+}
+
+.task-list::before,
+.task-list::after {
+    content: "";
+    position: sticky;
+    left: 0;
+    right: 0;
+    height: 20px;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.task-list::before {
+    top: 0;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.8), transparent);
+}
+
+.task-list::after {
+    bottom: 0;
+    background: linear-gradient(to top, rgba(255,255,255,0.8), transparent);
+}
+
+.task-list {
+    scrollbar-width: thin;
+    scrollbar-color: var(--rainbow-4) var(--bg-light);
 }
 
 .task {
@@ -73,6 +204,7 @@ button:hover {
     background-color: white;
     box-shadow: 0 4px 12px rgba(0,0,0,0.05);
     transition: all 0.3s ease;
+    margin-bottom: 15px;
 }
 
 .task:hover {
@@ -92,7 +224,7 @@ button:hover {
 .task p {
     margin: 6px 0;
     font-size: 15px;
-    color: #555;
+    color: var(--text-dark);
 }
 
 form {
@@ -106,7 +238,7 @@ form select {
     padding: 10px 12px;
     font-size: 15px;
     border-radius: 8px;
-    border: 1px solid #ccc;
+    border: 1px solid var(--rainbow-1);
     transition: border 0.2s ease;
 }
 
@@ -156,6 +288,7 @@ form button {
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: var(--text-dark);
 }
 
 .modal-overlay {
@@ -167,4 +300,24 @@ form button {
     background: rgba(0,0,0,0.3);
     z-index: 1000;
     display: none;
+}
+
+/* CSS cho biểu đồ thống kê trạng thái */
+#status-statistics {
+    flex: 3;
+    background: var(--bg-light);
+    padding: 24px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    margin-top: 32px;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#status-statistics h2 {
+    text-align: center;
+    color: var(--text-dark);
+    font-size: 20px;
+    margin-bottom: 16px;
 }

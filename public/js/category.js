@@ -15,8 +15,8 @@ function loadCategories() {
                     <td>${category.name}</td>
                     <td>${category.description || 'Không có mô tả'}</td>
                     <td>
-                        <button class="btn btn-sm" style="background:#f39c12; color:white;" onclick="editCategory('${category._id}')">Sửa</button>
-                        <button class="btn btn-sm" style="background:#e74c3c; color:white;" onclick="deleteCategory('${category._id}')">Xóa</button>
+                        <button class="btn-sm action-btn edit-btn" onclick="editCategory('${category._id}')">Sửa</button>
+                        <button class="btn-sm action-btn delete-btn" onclick="deleteCategory('${category._id}')">Xóa</button>
                     </td>
                 `;
                 categoryTableBody.appendChild(row);

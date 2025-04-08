@@ -7,9 +7,16 @@
     <link rel="stylesheet" href="./css/user.css"> <!-- Liên kết với file CSS -->
 </head>
 <body>
+    <header>
+        <button class="back-button" onclick="window.history.back()">← Quay lại</button>
+        <h1>Quản Lý Hệ Thống</h1>
+        <div class="header-actions">
+            <button id="toggle-theme-btn">🌙</button>
+        </div>
+    </header>    
+
     <div class="container">
         <h1>Quản Lý Người Dùng</h1>
-
         <!-- Nút Tạo Người Dùng Mới -->
         <button id="create-user-btn">Tạo Người Dùng Mới</button>
 

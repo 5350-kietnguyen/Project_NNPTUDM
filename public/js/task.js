@@ -31,6 +31,11 @@
 
             const categories = await categoryResponse.json();
             displayTasks(tasks, categories);  // Truyền categories vào function displayTasks
+
+            // Lấy thống kê theo trạng thái
+            const taskStatusCounts = getStatusCounts(tasks);
+            displayStatusChart(taskStatusCounts);
+
         } catch (err) {
             console.error(err);
             alert('Đã có lỗi xảy ra khi lấy dữ liệu công việc');
@@ -236,7 +241,7 @@
             editCategorySelect.appendChild(editOption);
         });
     }
-
+    
     // Gọi hàm fetchCategories khi trang được tải
     window.onload = () => {
         fetchTasks();
