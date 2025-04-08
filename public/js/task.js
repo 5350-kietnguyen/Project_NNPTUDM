@@ -1,75 +1,70 @@
-// Hàm để lấy dữ liệu từ API backend và hiển thị lên giao diện
-async function fetchTasks() {
-    try {
-        // Lấy danh sách tasks
-        const response = await fetch('/api/tasks', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+    // Hàm để lấy dữ liệu từ API backend và hiển thị lên giao diện
+    async function fetchTasks() {
+        try {
+            // Lấy danh sách tasks
+            const response = await fetch('/api/tasks', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Không thể tải danh sách công việc');
             }
-        });
 
-        if (!response.ok) {
-            throw new Error('Không thể tải danh sách công việc');
-        }
+            const tasks = await response.json();
 
-        const tasks = await response.json();
+            // Lấy danh sách categories để thay thế _id bằng name
+            const categoryResponse = await fetch('/api/categories', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            });
 
-        // Lấy danh sách categories để thay thế _id bằng name
-        const categoryResponse = await fetch('/api/categories', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            if (!categoryResponse.ok) {
+                throw new Error('Không thể tải danh sách loại công việc');
             }
-        });
 
-        if (!categoryResponse.ok) {
-            throw new Error('Không thể tải danh sách loại công việc');
+            const categories = await categoryResponse.json();
+            displayTasks(tasks, categories);  // Truyền categories vào function displayTasks
+        } catch (err) {
+            console.error(err);
+            alert('Đã có lỗi xảy ra khi lấy dữ liệu công việc');
         }
-
-        const categories = await categoryResponse.json();
-        displayTasks(tasks, categories);  // Truyền categories vào function displayTasks
-    } catch (err) {
-        console.error(err);
-        alert('Đã có lỗi xảy ra khi lấy dữ liệu công việc');
     }
-}
 
+    // Hàm để hiển thị danh sách công việc lên giao diện
+    function displayTasks(tasks, categories) {
+        const taskListContainer = document.getElementById('task-list');
+        taskListContainer.innerHTML = ''; // Làm sạch nội dung trước khi thêm công việc mới
 
-// Hàm để hiển thị danh sách công việc lên giao diện
-function displayTasks(tasks, categories) {
-    const taskListContainer = document.getElementById('task-list');
-    taskListContainer.innerHTML = ''; // Làm sạch nội dung trước khi thêm công việc mới
+        tasks.forEach(task => {
+            // Tìm category dựa trên _id của task
+            const category = categories.find(cat => cat._id === task.category);
+            const categoryName = category ? category.name : 'Chưa có loại';
 
-    tasks.forEach(task => {
-        // Tìm category dựa trên _id của task
-        const category = categories.find(cat => cat._id === task.category);
-        const categoryName = category ? category.name : 'Chưa có loại';
-
-        const taskElement = document.createElement('div');
-        taskElement.classList.add('task');
-        taskElement.innerHTML = `
-            <h3>${task.title}</h3>
-            <p><strong>Mô tả:</strong> ${task.description}</p>
-            <p><strong>Trạng thái:</strong> ${task.status}</p>
-            <p><strong>Loại công việc:</strong> ${categoryName}</p>
-            <p><strong>Ngày tạo:</strong> ${new Date(task.createdAt).toLocaleString()}</p>
-            <button onclick="openEditModal('${task._id}', '${task.title}', '${task.description}', '${task.status}', '${task.category}')">Chỉnh sửa</button>
-            <button onclick="openDeleteModal('${task._id}')">Xóa</button>
-        `;
-        taskListContainer.appendChild(taskElement);
-    });
-}
-
+            const taskElement = document.createElement('div');
+            taskElement.classList.add('task');
+            taskElement.innerHTML = `
+                <h3>${task.title}</h3>
+                <p><strong>Mô tả:</strong> ${task.description}</p>
+                <p><strong>Trạng thái:</strong> ${task.status}</p>
+                <p><strong>Loại công việc:</strong> ${categoryName}</p>
+                <p><strong>Ngày tạo:</strong> ${new Date(task.createdAt).toLocaleString()}</p>
+                <button onclick="openEditModal('${task._id}', '${task.title}', '${task.description}', '${task.status}', '${task.category}')">Chỉnh sửa</button>
+                <button onclick="openDeleteModal('${task._id}')">Xóa</button>
+            `;
+            taskListContainer.appendChild(taskElement);
+        });
+    }
 
     // Thêm công việc mới (POST)
     async function createTask(taskData) {
         try {
-            const categoryId = document.querySelector('#category option:checked').value; // Lấy _id của loại công việc
-            taskData.category = categoryId; // Gán _id vào taskData
-
             const response = await fetch('/api/tasks', {
                 method: 'POST',
                 headers: {
@@ -83,7 +78,10 @@ function displayTasks(tasks, categories) {
                 alert('Công việc đã được tạo thành công');
                 fetchTasks(); // Làm mới danh sách công việc
                 document.getElementById('create-task-modal').style.display = 'none'; // Đóng modal
+                document.getElementById('create-task-form').reset(); // Reset form
             } else {
+                const errData = await response.json();
+                console.error('Lỗi tạo công việc:', errData);
                 alert('Lỗi khi tạo công việc');
             }
         } catch (err) {
@@ -92,15 +90,28 @@ function displayTasks(tasks, categories) {
         }
     }
 
-    // Lưu công việc mới
+    function getCategoryNameById(id) {
+        const category = categoriesData.find(cat => cat._id === id);
+        return category ? category.name : null;
+    }
+
+    // Lưu công việc mới (submit form)
     document.getElementById('create-task-form').addEventListener('submit', function (e) {
         e.preventDefault();
+
+        const categoryId = document.getElementById('category').value;
+        const categoryName = getCategoryNameById(categoryId);
+
+        if (!categoryName) {
+            alert('Không tìm thấy loại công việc tương ứng');
+            return;
+        }
 
         const taskData = {
             title: document.getElementById('title').value,
             description: document.getElementById('description').value,
             status: document.getElementById('status').value,
-            category: document.getElementById('category').value // Lấy _id của category
+            category: categoryName // Gửi name thay vì _id
         };
 
         createTask(taskData);
@@ -178,6 +189,9 @@ function displayTasks(tasks, categories) {
         }
     }
 
+    // Khai báo biến toàn cục lưu danh sách categories
+    let categoriesData = [];
+
     // Hàm lấy danh sách loại công việc từ API và điền vào dropdown
     async function fetchCategories() {
         try {
@@ -193,8 +207,8 @@ function displayTasks(tasks, categories) {
                 throw new Error('Không thể tải danh sách loại công việc');
             }
 
-            const categories = await response.json();
-            populateCategoryDropdown(categories);
+            categoriesData = await response.json(); // Lưu vào biến toàn cục
+            populateCategoryDropdown(categoriesData);
         } catch (err) {
             console.error(err);
             alert('Đã có lỗi xảy ra khi lấy dữ liệu loại công việc');

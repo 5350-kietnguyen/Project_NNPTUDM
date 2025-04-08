@@ -1,6 +1,13 @@
 // Mở modal tạo công việc
 document.getElementById('create-task-btn').addEventListener('click', () => {
+    fetchCategories(); // Load danh sách category trước mỗi lần mở modal
     document.getElementById('create-task-modal').style.display = 'block';
+});
+
+
+// Đóng modal tạo công việc
+document.getElementById('close-create-modal-btn').addEventListener('click', () => {
+    document.getElementById('create-task-modal').style.display = 'none';
 });
 
 // Mở modal chỉnh sửa công việc
@@ -28,6 +35,11 @@ function openEditModal(id, title, description, status, categoryId) {
     };
 }
 
+// Đóng modal chỉnh sửa công việc
+document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
+    document.getElementById('edit-task-modal').style.display = 'none';
+});
+
 // Mở modal xóa công việc
 function openDeleteModal(id) {
     document.getElementById('delete-task-modal').style.display = 'block';
@@ -35,16 +47,6 @@ function openDeleteModal(id) {
         deleteTask(id);
     };
 }
-
-// Đóng modal tạo công việc
-document.getElementById('close-create-modal-btn').addEventListener('click', () => {
-    document.getElementById('create-task-modal').style.display = 'none';
-});
-
-// Đóng modal chỉnh sửa công việc
-document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
-    document.getElementById('edit-task-modal').style.display = 'none';
-});
 
 // Đóng modal xóa công việc
 document.getElementById('close-delete-modal-btn').addEventListener('click', () => {
