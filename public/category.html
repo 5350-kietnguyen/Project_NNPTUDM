@@ -13,14 +13,13 @@
             <button id="toggle-theme-btn">🌙 Chế độ tối</button>
         </div>
         <div class="header-actions">
-          <h1>Quản lý Loại Công Việc</h1>
+          <h1>Hệ Thống Quản Lý</h1>
         </div>
     </header>      
       
     <div class="container">
         <h2>Quản lý Loại Công Việc</h2>
         <button class="btn" onclick="openModal('addCategoryModal')">Thêm Loại Công Việc</button>
-
         <table>
             <thead>
                 <tr>
@@ -83,31 +82,6 @@
         </div>
     </div>
 
-    <script>
-        function openModal(id) {
-            document.getElementById(id).classList.add("active");
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove("active");
-        }
-
-        // Dark mode toggle
-        document.addEventListener("DOMContentLoaded", function () {
-            const toggleBtn = document.getElementById("toggle-theme-btn");
-            const body = document.body;
-
-            // Lấy trạng thái đã lưu
-            if (localStorage.getItem("theme") === "dark") {
-                body.classList.add("dark-mode");
-            }
-
-            toggleBtn.addEventListener("click", function () {
-                body.classList.toggle("dark-mode");
-                localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
-            });
-        });
-    </script>
     <script src="./js/category.js"></script>
 </body>
 </html>

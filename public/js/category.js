@@ -102,3 +102,27 @@ function closeModal(id) {
 
 // Tự động tải khi trang load
 window.onload = loadCategories;
+
+function openModal(id) {
+    document.getElementById(id).classList.add("active");
+}
+
+function closeModal(id) {
+    document.getElementById(id).classList.remove("active");
+}
+
+// Dark mode toggle
+document.addEventListener("DOMContentLoaded", function () {
+    const toggleBtn = document.getElementById("toggle-theme-btn");
+    const body = document.body;
+
+    // Lấy trạng thái đã lưu
+    if (localStorage.getItem("theme") === "dark") {
+        body.classList.add("dark-mode");
+    }
+
+    toggleBtn.addEventListener("click", function () {
+        body.classList.toggle("dark-mode");
+        localStorage.setItem("theme", body.classList.contains("dark-mode") ? "dark" : "light");
+    });
+});

@@ -106,8 +106,6 @@ const updateUser = async (req, res) => {
     }
 };
 
-
-
 // Xóa người dùng
 const deleteUser = async (req, res) => {
     const { id } = req.params;  // Nhận ID người dùng từ params
