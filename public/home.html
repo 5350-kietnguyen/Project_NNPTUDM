@@ -1,26 +1,42 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang Chủ - Quản Lý Người Dùng và Công Việc</title>
-    <link rel="stylesheet" href="./css/home.css"> <!-- Liên kết với file CSS -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Trang Chủ - Quản Lý Hệ Thống</title>
+  <link rel="stylesheet" href="./css/home.css"/>
+  <script defer src="./js/home.js"></script>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Chào Mừng Đến Với Hệ Thống Quản Lý</h1>
-            <nav>
-                <ul>
-                    <li><a href="user.html">Quản Lý Người Dùng</a></li>
-                    <li><a href="task.html">Quản Lý Công Việc</a></li>
-                    <li><a href="category.html">Danh mục công việc</a></li>
-                </ul>
-            </nav>
-        </header>
-        <footer>
-            <p>&copy; 2025 Hệ Thống Quản Lý</p>
-        </footer>
-    </div>
+  <div class="container">
+    <header class="header">
+      <h1>🎯 Quản Lý Hệ Thống</h1>
+      <div class="user-info">
+        <span id="username">👤 Admin</span>
+        <button id="logoutBtn">Đăng Xuất</button>
+        <button id="themeToggle" title="Chuyển giao diện">🌙</button>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <a href="user.html" class="card">👥 Quản Lý Người Dùng</a>
+      <a href="task.html" class="card">✅ Quản Lý Công Việc</a>
+      <a href="category.html" class="card">📁 Danh Mục Công Việc</a>
+    </nav>
+
+    <section class="calendar-clock">
+        <div class="calendar-box">
+          <div class="calendar-header" id="calendar-date">Thứ ...</div>
+          <div class="calendar-body" id="calendar-grid">
+            <!-- Ngày sẽ render ở đây -->
+          </div>
+        </div>
+        <div class="clock-box">
+          <div id="big-clock">--:--:--</div>
+          <div id="big-date">--/--/----</div>
+        </div>
+      </section>      
+
+  </div>
 </body>
 </html>
